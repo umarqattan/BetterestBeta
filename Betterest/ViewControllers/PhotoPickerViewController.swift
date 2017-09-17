@@ -94,6 +94,7 @@ class PhotoPickerViewController: UIViewController {
                                                         let photo = Photo(name: self.photoCount, image: image)
                                                         self.photosStructs.append(photo)
                                                         self.photoCount += 1
+                                                        print("Count=\(count)")
                         }
                     })
                 }
@@ -104,12 +105,17 @@ class PhotoPickerViewController: UIViewController {
     @objc func swipe(_ sender: UISwipeGestureRecognizer) {
        
         
+        
         if photoPairs.count == 0 {
             
             return
         }
         
+        
+        
         if photoPairs.count > 1 {
+            
+            _ = photoPairs.removeFirst()
             UIView.animate(withDuration: 1.0, animations: {
                 self.leftImageView.image = self.photoPairs.first!.0
                 self.rightImageView.image = self.photoPairs.first!.1
@@ -135,7 +141,14 @@ class PhotoPickerViewController: UIViewController {
             } else {
                 j = j+1
             }
-        } else {
+        } else if photoPairs.count == 1 {
+            
+            
+            UIView.animate(withDuration: 1.0, animations: {
+                self.leftImageView.image = self.photoPairs.first!.0
+                self.rightImageView.image = self.photoPairs.first!.1
+            })
+            
             if sender.direction == .left {
                 photosStructs[i].incoming += 1
                 photosStructs[j].outgoing += 1
@@ -168,19 +181,25 @@ class PhotoPickerViewController: UIViewController {
                 print(row)
             }
             
+            _ = photoPairs.removeFirst()
+            leftImageView.image = nil
+            rightImageView.image = nil
             rankButton.isHidden = false
             rankButton.isEnabled = true
+            
         }
-        _ = photoPairs.removeFirst()
+        
+        print("PhotoPairsCount=\(photoPairs.count)")
         pairsRemainingLabel.text = "\(photoPairs.count)"
     }
     
     func generatePhotoPairs(photos:[UIImage]) -> [(UIImage, UIImage)] {
         
         var photoPairs:[(UIImage, UIImage)] = []
-        for i in 0...photos.count-1 {
-            for j in (i+1)..<photos.count {
-                photoPairs.append((photos[i], photos[j]))
+        for x in 0...photos.count-1 {
+            for y in (x+1)..<photos.count {
+                print("i=\(x),j=\(y)")
+                photoPairs.append((photos[x], photos[y]))
             }
         }
         photoMatrix = Array(repeating: Array(repeating: 0,

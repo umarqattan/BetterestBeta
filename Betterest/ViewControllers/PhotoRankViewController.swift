@@ -36,9 +36,16 @@ extension PhotoRankViewController: UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Photo", for: indexPath) as! PhotoCollectionViewCell
         
-        cell.configure(image: self.photos[indexPath.row].image)
+        cell.configure(image: self.photos[indexPath.row].image, rank: indexPath.row)
         
         return cell
         
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indexPath)
+    }
+    
 }
+
+
