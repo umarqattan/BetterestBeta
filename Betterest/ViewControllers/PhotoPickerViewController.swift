@@ -12,7 +12,6 @@ import PhotosUI
 
 class PhotoPickerViewController: UIViewController {
 
-    
     var photoShootAlbum = PhotoShootAlbum.shared
     var photos:[UIImage] = []
     var photosStructs:[Photo] = []
@@ -20,7 +19,6 @@ class PhotoPickerViewController: UIViewController {
     var unFavoritePhotos:[UIImage] = []
     var photoPairs:[(UIImage, UIImage)] = []
     var photoPageRank:PhotoPageRank!
-    
     
     var rightSwipeGestureRecognizer: UISwipeGestureRecognizer!
     var leftSwipeGestureRecognizer: UISwipeGestureRecognizer!
@@ -212,8 +210,6 @@ class PhotoPickerViewController: UIViewController {
     
     
     @IBAction func rank(_ sender: UIButton) {
-        
-        
         
     }
     
